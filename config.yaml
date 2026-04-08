@@ -1,0 +1,143 @@
+# MultiAI Hub 配置
+
+# LLM模型配置
+models:
+  openai:
+    api_key: "${OPENAI_API_KEY}"
+    base_url: "https://api.openai.com/v1"
+    model: "gpt-4"
+  
+  anthropic:
+    api_key: "${ANTHROPIC_API_KEY}"
+    model: "claude-3-sonnet-20240229"
+  
+  custom:
+    base_url: "${CUSTOM_API_URL}"
+    api_key: "${CUSTOM_API_KEY}"
+    model: "custom-model"
+
+# 默认模型
+default_model: "openai"
+
+# 角色库配置
+roles:
+  directory: "./roles"
+  auto_reload: true
+  
+  # 角色模板
+  templates:
+    default:
+      system_prompt: "你是一个专业的{role_name}。"
+      temperature: 0.7
+      max_tokens: 2000
+    
+    technical:
+      system_prompt: "你是一个经验丰富的{role_name}，专注于技术细节和最佳实践。"
+      temperature: 0.5
+      max_tokens: 3000
+    
+    creative:
+      system_prompt: "你是一个富有创意的{role_name}，善于创新和发散思维。"
+      temperature: 0.9
+      max_tokens: 2500
+
+# 项目管理配置
+projects:
+  directory: "./projects"
+  auto_save: true
+  
+  # 任务状态
+  task_status:
+    - pending
+    - in_progress
+    - review
+    - completed
+    - cancelled
+  
+  # 优先级
+  priority:
+    - low
+    - medium
+    - high
+    - urgent
+
+# 工作流配置
+workflows:
+  directory: "./workflows"
+  
+  # 并发任务数
+  max_concurrent_tasks: 5
+  
+  # 任务超时 (分钟)
+  task_timeout: 30
+
+# 飞书集成
+feishu:
+  enabled: true
+  app_id: "${FEISHU_APP_ID}"
+  app_secret: "${FEISHU_APP_SECRET}"
+  
+  # Webhook
+  webhook_url: "${FEISHU_WEBHOOK_URL}"
+  
+  # 功能开关
+  features:
+    message_push: true
+    doc_sync: true
+    calendar_sync: true
+
+# GitHub集成
+github:
+  enabled: true
+  token: "${GITHUB_TOKEN}"
+  
+  # 默认仓库
+  default_owner: "zjq12333"
+  
+  # 功能开关
+  features:
+    issue_sync: true
+    pr_review: true
+    commit_tracking: true
+
+# Obsidian集成
+obsidian:
+  enabled: true
+  vault_path: "/mnt/d/data/notes"
+  
+  # 笔记模板
+  templates:
+    project: "./templates/project.md"
+    task: "./templates/task.md"
+    meeting: "./templates/meeting.md"
+
+# 存储配置
+storage:
+  directory: "./data"
+  
+  # 数据库
+  database: "sqlite://./data/multiai.db"
+  
+  # 备份
+  backup:
+    enabled: true
+    directory: "./backups"
+    frequency: "daily"
+    max_backups: 30
+
+# 日志配置
+logging:
+  level: "INFO"
+  file: "./logs/multiai-hub.log"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+
+# 性能配置
+performance:
+  # 缓存大小
+  cache_size: 1000
+  
+  # 连接池大小
+  connection_pool_size: 10
+  
+  # 请求重试次数
+  max_retries: 3
